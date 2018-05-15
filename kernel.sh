@@ -11,9 +11,10 @@ dpkg -i linux-headers-4.15.18-041518_4.15.18-041518.201804190330_all.deb
 echo "Ensuring dependencies"
 apt-get -y install aptitude
 aptitude -f install
-echo "Updating grub"
-update-grub
 echo "Cleaning"
 rm -r $script_dir/linux-headers-4.15.18-041518_4.15.18-041518.201804190330_all.deb
 rm -r $script_dir/linux-headers-4.15.18-041518-generic_4.15.18-041518.201804190330_amd64.deb
 rm -r $script_dir/linux-image-4.15.18-041518-generic_4.15.18-041518.201804190330_amd64.deb
+echo "Updating grub"
+update-grub
+echo "Grub updated, reboot to load new kernel"
