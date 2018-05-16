@@ -1,2 +1,3 @@
-# scripts
-Useful bash scripts, obviously CHMOD
+# Useful Scripts
+TODO: file hierachy
+script explainers
