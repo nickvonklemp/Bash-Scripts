@@ -47,7 +47,7 @@ fi
 FW="${FWDIR}/pci-${PCIADDR}.nffw"
 ln -sf "${APP}/nic_${ASSY}.nffw" "${FW}"
 
-if [ $(cat /etc/os-release | grep "ID=ubuntu" | cut -d '=' -f2) == "ubuntu" ]; then
+if [ "$(cat /etc/os-release | grep "ID=ubuntu" | cut -d '=' -f2)" == "ubuntu" ]; then
      echo "Ubuntu"
      # Ubuntu 18.04 distro-specific initramfs section
      HOOK=/etc/initramfs-tools/hooks/agilio_firmware
@@ -74,7 +74,7 @@ EOF
      chmod a+x "${HOOK}"
      update-initramfs -u
 fi
-if [ $(cat /etc/os-release | grep 'ID="centos"' | cut -d '"' -f2 | cut -d '"' -f1) == "centos" ]; then
+if [ "$(cat /etc/os-release | grep 'ID="centos"' | cut -d '"' -f2 | cut -d '"' -f1)" == "centos" ]; then
     echo "Red Had Enterprise Linux"
     # RHEL 7.5 distro-specific initramfs section
     DRACUT_CONF=/etc/dracut.conf.d/98-nfp-firmware.conf
