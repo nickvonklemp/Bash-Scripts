@@ -22,7 +22,6 @@ if [ "x${DEVICE}" = "x" -o ! -e /sys/class/net/${DEVICE} ]; then
     echo      firmware has been installed.
     exit 1
 fi
-
 # It is recommended that the assembly be determined by inspection
 # The following code determines the value via the debug interface
 if [ "${ASSY}x" = "scanx" ]; then
@@ -35,6 +34,8 @@ fi
 
 PCIADDR=$(basename $(readlink -e /sys/class/net/${DEVICE}/device))
 FWDIR="/lib/firmware/netronome"
+echo $PCIADDR
+echo $FWDIR
 
 # AMDA0081 and AMDA0097 uses the same firmware
 if [ "${ASSY}" = "AMDA0081" ]; then
@@ -46,7 +47,7 @@ fi
 FW="${FWDIR}/pci-${PCIADDR}.nffw"
 ln -sf "${APP}/nic_${ASSY}.nffw" "${FW}"
 
-if [ $(cat /etc/os-release | grep "PRETTY_NAME" | cut -d '"' -f2 | cut -d ' ' -f1) == "Ubuntu" ]; then
+if [ $(cat /etc/os-release | grep "ID=ubuntu" | cut -d '=' -f2) == "ubuntu" ]; then
      echo "Ubuntu"
      # Ubuntu 18.04 distro-specific initramfs section
      HOOK=/etc/initramfs-tools/hooks/agilio_firmware
@@ -73,11 +74,11 @@ EOF
      chmod a+x "${HOOK}"
      update-initramfs -u
 fi
-if [ $(cat /etc/os-release | grep "PRETTY_NAME" | cut -d '"' -f2 | cut -d ' ' -f1) == "RHEL" ]; then
+if [ $(cat /etc/os-release | grep 'ID="centos"' | cut -d '"' -f2 | cut -d '"' -f1) == "centos" ]; then
     echo "Red Had Enterprise Linux"
     # RHEL 7.5 distro-specific initramfs section
     DRACUT_CONF=/etc/dracut.conf.d/98-nfp-firmware.conf
     echo "install_items+=\" ${FW} \"" > "${DRACUT_CONF}"
-    dracut -f
+    dracut --force
 fi
 # insert distro-specific initramfs section here...
