@@ -44,9 +44,17 @@ if [ "${ASSY}" = "AMDA0081" ]; then
     fi
 fi
 
-FW="${FWDIR}/pci-${PCIADDR}.nffw"
-ln -sf "${APP}/nic_${ASSY}.nffw" "${FW}"
-
+if [[ ${APP} = "flower" || ${APP} = "flower-next" ]]; then
+	echo "Switching to flower firmware"
+	FW="${FWDIR}/pci-${PCIADDR}.nffw"
+	ln -sf "${APP}/nic_${ASSY}.nffw" "${FW}"
+fi
+if [ "${APP}" == "nic" ]; then
+	if [ -f ${FWDIR}/pci-${PCIADDR}.nffw ]; then
+		echo "Switching to CoreNIC firmware"
+		rm -r ${FWDIR}/pci-${PCIADDR}.nffw
+	fi
+fi
 if [ "$(cat /etc/os-release | grep "ID=ubuntu" | cut -d '=' -f2)" == "ubuntu" ]; then
      echo "Ubuntu"
      # Ubuntu 18.04 distro-specific initramfs section
