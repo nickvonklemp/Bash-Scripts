@@ -25,6 +25,7 @@ fi
 if [[ ( "$RHEL" == "rhel" ) || ( "$CENTOS" == "centos" ) ]]; then
 	echo "RHEL/Centos system detected"
 	# First download rpm package key
+	yum install -y wget
 	echo "Downloading netronome public key"
 	wget https://rpm.netronome.com/gpg/NetronomePublic.key
 	# RHEL/Centos specific yum changes
@@ -38,7 +39,7 @@ baseurl=https://rpm.netronome.com/repos/centos
 EOF
 	# Update repository lists
 	echo "Done, updating packages"
-	yum update
+	yum update -y
 	echo "Cleaning up"
 	rm -r -f NetronomePublic.key
 fi
