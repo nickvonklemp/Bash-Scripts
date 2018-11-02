@@ -11,8 +11,11 @@ function wait_text {
 touch output.csv
 ip=$1
 s=$2
-session=nick
+session=nick2
 window=${session}:0
+pane=${window}.4
+tmux send-keys -t "$pane" C-z "iperf3 -s -A 2 -p 1" Enter
+sleep 1
 pane=${window}.2
 tmux send-keys -t "$pane" C-z "clear" Enter
 sleep 1
@@ -24,6 +27,9 @@ STRING="$s,1,$OUTPUT"
 echo "$STRING" >> output.csv
 echo "$STRING"
 sleep 1
+pane=${window}.4
+tmux send-keys -t "$pane" C-z "iperf3 -s -A 2 -p 1" Enter
+sleep 1
 pane=${window}.2
 tmux send-keys -t "$pane" C-z "clear" Enter
 sleep 1
@@ -34,7 +40,10 @@ OUTPUT="$(tmux capture-pane -J -p -t $pane | tail -4 | head -1 | awk '{ print $6
 STRING="$s,2,$OUTPUT"
 echo "$STRING"
 echo "$STRING" >> output.csv
-sleep 1 
+sleep 1
+pane=${window}.4
+tmux send-keys -t "$pane" C-z "iperf3 -s -A 2 -p 1" Enter
+sleep 1
 tmux send-keys -t "$pane" C-z "clear" Enter
 sleep 1
 tmux send-keys -t "$pane" C-z "iperf3 -c $ip -A 2 -p 1 -P 4 -M $s" Enter
@@ -44,6 +53,9 @@ OUTPUT="$(tmux capture-pane -J -p -t $pane | tail -4 | head -1 | awk '{ print $6
 STRING="$s,4,$OUTPUT"
 echo "$STRING" >> output.csv
 echo "$STRING"
+sleep 1
+pane=${window}.4
+tmux send-keys -t "$pane" C-z "iperf3 -s -A 2 -p 1" Enter
 sleep 1
 tmux send-keys -t "$pane" C-z "clear" Enter
 sleep 1
@@ -55,6 +67,9 @@ STRING="$s,8,$OUTPUT"
 echo "$STRING" >> output.csv
 echo "$STRING"
 sleep 1
+pane=${window}.4
+tmux send-keys -t "$pane" C-z "iperf3 -s -A 2 -p 1" Enter
+sleep 1
 tmux send-keys -t "$pane" C-z "clear" Enter
 sleep 1
 tmux send-keys -t "$pane" C-z "iperf3 -c $ip -A 2 -p 1 -P 16 -M $s" Enter
@@ -64,6 +79,9 @@ OUTPUT="$(tmux capture-pane -J -p -t $pane | tail -4 | head -1 | awk '{ print $6
 STRING="$s,16,$OUTPUT"
 echo "$STRING" >> output.csv
 echo "$STRING"
+sleep 1
+pane=${window}.4
+tmux send-keys -t "$pane" C-z "iperf3 -s -A 2 -p 1" Enter
 sleep 1
 pane=${window}.2
 tmux send-keys -t "$pane" C-z "clear" Enter
@@ -75,6 +93,9 @@ OUTPUT="$(tmux capture-pane -J -p -t $pane | tail -4 | head -1 | awk '{ print $6
 STRING="$s,32,$OUTPUT"
 echo "$STRING" >> output.csv
 echo "$STRING"
+sleep 1
+pane=${window}.4
+tmux send-keys -t "$pane" C-z "iperf3 -s -A 2 -p 1" Enter
 sleep 1
 tmux send-keys -t "$pane" C-z "clear" Enter
 sleep 1
