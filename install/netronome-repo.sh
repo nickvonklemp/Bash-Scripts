@@ -39,7 +39,7 @@ baseurl=https://rpm.netronome.com/repos/centos
 EOF
 	# Update repository lists
 	echo "Done, updating packages"
-	yum update -y
+	yum updateinfo
 	echo "Cleaning up"
 	rm -r -f NetronomePublic.key
 fi
