@@ -1,3 +1,1 @@
-# Useful Scripts
-TODO: file hierachy
-script explainers
+# Bash Scripts
